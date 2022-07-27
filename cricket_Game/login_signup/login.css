@@ -1,0 +1,27 @@
+.top_of_mobile_number_box{
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    /* background-color: aqua; */
+}
+
+.top_of_password_box{
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    /* background-color: aqua; */
+}
+#top{
+    margin-top: 5%;
+    padding :5%;
+    border-radius: 10%;
+    border-style: ridge;
+    border-width: 5px 20px;
+    border-color: #ff0099;
+    background-color: #0043ff;
+}
+.heading{
+    margin-left: 35%;
+    margin-bottom: 5%;
+    font-weight: bolder;
+    color: red;
+    /* background-color: aqua; */
+}
