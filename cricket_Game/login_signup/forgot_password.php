@@ -14,7 +14,7 @@
 
     <div class="container" id="top">
         <div class="heading">
-            <h1>Reset your password</h1>
+            <h1>Get your password</h1>
         </div>
         <!-- Mobile Number -->
         <form action="data/player/get_password.php" method="post" enctype="multipart/form-data">

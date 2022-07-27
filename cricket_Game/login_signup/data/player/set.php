@@ -62,16 +62,15 @@
   $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
 
   if(!$conn) {
-    die("");
+    $_SESSION['mssg']="Conn";
+    header("Location: after/wrong/signup.php");
   }
 
   $sql = "INSERT INTO `player` (`Name`, `Father's_Name`, `Gender`, `DOB`, `Profile_picture_url`, `Aadhar_Card`, `State`, `District`, `City`, `PIN_Code`, `Mobile_number`, `Email _id`, `Password`) VALUES ('$name', '$father_name', '$gender', '$date_of_birth', '$profile_picture_url', '$aadhar_card_url', '$state', '$district', '$city', '$pin_number', '$mobile_number', '$email', '$pass')";
   $result = mysqli_query($conn,$sql);
-  if($result) {
-    
-  } else {
-    echo "Sorry for Inconvenience Please try again You are Not registered due to some techniqal issues";
-  }
+  
+  $_SESSION['mssg']="Right";
+  header("Location: after/right/signup.php");
   ?>
 
     <!-- Optional JavaScript -->
