@@ -28,12 +28,11 @@
   $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
 
   if(strlen($mobile_number)==10) {
-    $sql = "SELECT * FROM `player` WHERE EXISTS(SELECT * FROM `player` WHERE Mobile_number='$mobile_number')";
+    $sql = "SELECT * FROM `player` WHERE Mobile_number='$mobile_number'";
     $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)!=0) {
-        $sql = "SELECT * FROM `player` WHERE EXISTS(SELECT * FROM `player` WHERE Mobile_number='$mobile_number' AND Password='$pass')";
+      $sql = "SELECT * FROM `player` WHERE Mobile_number='$mobile_number' AND Password='$pass'";
         $result = mysqli_query($conn,$sql);
-
         if(mysqli_num_rows($result)==1) {
             foreach($result as $key => $value) {
                 if($key=="profile_picture_url" || $key=="aadhar_card_url") continue;

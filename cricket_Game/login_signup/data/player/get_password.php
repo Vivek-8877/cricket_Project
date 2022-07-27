@@ -27,7 +27,7 @@
   $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
 
   if(strlen($mobile_number)==10) {
-    $sql = "SELECT Password FROM `player` WHERE EXISTS(SELECT Password FROM `player` WHERE Mobile_number='$mobile_number')";
+    $sql = "SELECT * FROM `player` WHERE Mobile_number='$mobile_number'";
     $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)==1) {
         $new_pass="";
