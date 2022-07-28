@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="css_file/login.css">
     <title>login page</title>
   </head>
   <body>
@@ -47,6 +47,18 @@
                 </div>
             </label>
             <input type="password" class="form-control" name="pass" id="pass" placeholder="Enter your Password" required>
+        </div>
+        <!-- Captcha Code -->
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-3">
+                    <label for="">Captcha:</label>
+                    <input type="text" class="form-control" name="captcha" id="captcha" placeholder="Enter Captcha Code" required>
+                </div>
+                <div class="col-lg-2" style="margin-top:3.5%">
+                    <img src="captcha_code_generator.php" alt="">
+                </div>
+            </div>
         </div>
         <div>
             <button style="background-color:#00ff1f" type="submit" class="btn btn-primary">Log In</button>

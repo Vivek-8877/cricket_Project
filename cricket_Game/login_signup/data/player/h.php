@@ -7,6 +7,12 @@ include 'connection.php';
   $mobile_number = $_POST['mobile_number'];
   $pass = $_POST['pass'];
 
+//   $server_name = "localhost";
+//   $user_name = "root";
+//   $password = "";
+
+//   $data_base_name = "form";
+
   $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
   if(!$conn) {
     $_SESSION['mssg']="Conn";
@@ -79,4 +85,5 @@ include 'connection.php';
 
 
 
-?>
+
+  ?>
