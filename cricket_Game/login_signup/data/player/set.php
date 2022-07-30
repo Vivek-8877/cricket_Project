@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="get.css">
-    <title>logged in</title>
+    <title>Signed Up</title>
   </head>
   <body>
   <?php
@@ -18,7 +18,12 @@
 
   $data_base_name = "form";
 
-
+  session_start();
+  $captcha = $_POST['captcha'];
+  if($captcha!=$_SESSION['code']) {
+    $_SESSION['mssg']="captcha";
+    header("Location: after/wrong/signup.php");
+  }
 
   $profile_picture_url="";
   $aadhar_card_url="";
@@ -58,7 +63,6 @@
   $email = $_POST['email'];
   $pass = $_POST['pass'];
 
-
   $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
 
   if(!$conn) {
@@ -66,7 +70,7 @@
     header("Location: after/wrong/signup.php");
   }
 
-  $sql = "INSERT INTO `player` (`Name`, `Father's_Name`, `Gender`, `DOB`, `Profile_picture_url`, `Aadhar_Card`, `State`, `District`, `City`, `PIN_Code`, `Mobile_number`, `Email _id`, `Password`) VALUES ('$name', '$father_name', '$gender', '$date_of_birth', '$profile_picture_url', '$aadhar_card_url', '$state', '$district', '$city', '$pin_number', '$mobile_number', '$email', '$pass')";
+  $sql = "INSERT INTO `player` (`Name`, `Father's_Name`, `Gender`, `DOB`, `Profile_picture_url`, `Aadhar_Card`, `State`, `District`, `City`, `PIN_Code`, `Mobile_number`, `Email_id`, `Password`) VALUES ('$name', '$father_name', '$gender', '$date_of_birth', '$profile_picture_url', '$aadhar_card_url', '$state', '$district', '$city', '$pin_number', '$mobile_number', '$email', '$pass')";
   $result = mysqli_query($conn,$sql);
   
   $_SESSION['mssg']="Right";

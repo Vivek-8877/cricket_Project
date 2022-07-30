@@ -20,11 +20,17 @@
   $data_base_name = "form";
 
   session_start();
+  $captcha = $_POST['captcha'];
+  if($captcha!=$_SESSION['code']) {
+    $_SESSION['mssg']="captcha";
+    header("Location: after/wrong/login.php");
+  }
+
 
   $mobile_number = $_POST['mobile_number'];
   $pass = $_POST['pass'];
 
-  $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
+  $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name) or $ab = false;
   if(!$conn) {
     $_SESSION['mssg']="Conn";
     header("Location: after/wrong/login.php");

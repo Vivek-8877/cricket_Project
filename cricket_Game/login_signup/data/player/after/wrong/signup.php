@@ -15,6 +15,18 @@
   <?php
   session_start();
   $mssg = $_SESSION['mssg'];
+  session_abort();
+  if($mssg=="captcha") {
+    ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Sorry !</strong>  Captcha Not Matches.
+    <a href="../../../../signup.php">Click here to log in</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <?php
+  } else {
     ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Sorry !</strong> For Inconvinence Due to some technical issues we are not getting you Please try again.
@@ -24,6 +36,7 @@
     </button>
   </div>
   <?php
+  }
   ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

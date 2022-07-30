@@ -15,7 +15,18 @@
   <?php
   session_start();
   $mssg = $_SESSION['mssg'];
-  if($mssg=="Invalid") {
+  session_abort();
+  if($mssg=="captcha") {
+    ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Sorry !</strong>  Captcha Not Matches.
+    <a href="../../../../login.php">Click here to log in</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <?php
+  } else if($mssg=="Invalid") {
     ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Sorry !</strong> Invalid Mobile Number Entered.

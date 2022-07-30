@@ -15,7 +15,7 @@
   <?php
   session_start();
   $mssg = $_SESSION['mssg'];
-
+  session_abort();
   ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong><?php echo $mssg ?> </strong> is your Password.

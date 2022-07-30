@@ -12,6 +12,11 @@
   <body>
   <?php
   session_start();
+  $captcha = $_POST['captcha'];
+  if($captcha!=$_SESSION['code']) {
+    $_SESSION['mssg']="captcha";
+    header("Location: after/wrong/password.php");
+  }
 
   $mobile_number = $_POST['mobile_number'];
 

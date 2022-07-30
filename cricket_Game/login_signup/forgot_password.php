@@ -42,6 +42,7 @@
                 </div>
                 <div class="col-lg-2" style="margin-top:3.5%">
                     <img src="captcha_code_generator.php" alt="">
+                    <?php session_abort(); ?>
                 </div>
             </div>
         </div>
