@@ -36,7 +36,7 @@
   $img_ex_lc = strtolower($img_ex);
   $new_img_name = uniqid("IMG-",true).'.'.$img_ex_lc;
   $img_upload_path = 'uploads/images/'.$new_img_name;
-  move_uploaded_file($tmp_name,$img_upload_path);
+  // move_uploaded_file($tmp_name,$img_upload_path);
   $profile_picture_url=$new_img_name;
 // set url for aadhar card
   $aadhar_name = $_FILES['aadhar_card']['name'];
@@ -47,7 +47,7 @@
   $aadhar_ex_lc = strtolower($aadhar_ex);
   $new_aadhar_name = uniqid("DOC-",true).'.'.$aadhar_ex_lc;
   $aadhar_upload_path = 'uploads/documents/'.$new_aadhar_name;
-  move_uploaded_file($tmp_aadhar_name,$aadhar_upload_path);
+  // move_uploaded_file($tmp_aadhar_name,$aadhar_upload_path);
   $aadhar_card_url=$new_aadhar_name;
 
 // extracting all variable
@@ -70,8 +70,17 @@
     header("Location: after/wrong/signup.php");
   }
 
+  $mobile = "SELECT COUNT(Mobile_number) FROM `player` WHERE Mobile_number='$mobile_number'";
+  $result = mysqli_num_rows(mysqli_query($conn,$mobile));
+  if($result!=0) {
+    $_SESSION['mssg']="mobile";
+    header("Location: after/wrong/signup.php");
+  }
+
   $sql = "INSERT INTO `player` (`Name`, `Father's_Name`, `Gender`, `DOB`, `Profile_picture_url`, `Aadhar_Card`, `State`, `District`, `City`, `PIN_Code`, `Mobile_number`, `Email_id`, `Password`) VALUES ('$name', '$father_name', '$gender', '$date_of_birth', '$profile_picture_url', '$aadhar_card_url', '$state', '$district', '$city', '$pin_number', '$mobile_number', '$email', '$pass')";
   $result = mysqli_query($conn,$sql);
+  move_uploaded_file($tmp_name,$img_upload_path);
+  move_uploaded_file($tmp_aadhar_name,$aadhar_upload_path);
   
   $_SESSION['mssg']="Right";
   header("Location: after/right/signup.php");

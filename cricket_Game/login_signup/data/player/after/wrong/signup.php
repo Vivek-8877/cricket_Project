@@ -15,12 +15,23 @@
   <?php
   session_start();
   $mssg = $_SESSION['mssg'];
+  // print_r($_SESSION);
   session_abort();
-  if($mssg=="captcha") {
+  if($mssg=="mobile") {
+    ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Sorry !</strong> Entered Mobile Number Already Registered,please choose different mobile number.
+    <a href="../../../../signup.php">Click here to SignUp</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <?php
+  } else if($mssg=="captcha") {
     ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Sorry !</strong>  Captcha Not Matches.
-    <a href="../../../../signup.php">Click here to log in</a>
+    <a href="../../../../signup.php">Click here to SignUp</a>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
