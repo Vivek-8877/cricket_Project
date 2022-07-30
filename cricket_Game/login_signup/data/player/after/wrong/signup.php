@@ -16,7 +16,7 @@
   session_start();
   $mssg = $_SESSION['mssg'];
   // print_r($_SESSION);
-  session_abort();
+  // session_destroy();
   if($mssg=="mobile") {
     ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">

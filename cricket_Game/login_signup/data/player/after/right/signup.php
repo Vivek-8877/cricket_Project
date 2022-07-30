@@ -8,14 +8,14 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>Invalid Credantial</title>
+    <title>Valid Credantial</title>
   </head>
   <body>
 
   <?php
   session_start();
   $mssg = $_SESSION['mssg'];
-  session_abort();
+  // session_destroy();
     ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Successfully ! </strong> you are Registered.

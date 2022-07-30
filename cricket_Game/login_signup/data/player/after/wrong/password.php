@@ -15,12 +15,13 @@
   <?php
   session_start();
   $mssg = $_SESSION['mssg'];
-  session_abort();
+  // print_r($_SESSION);
+  // session_destroy();
   if($mssg=="captcha") {
     ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Sorry !</strong>  Captcha Not Matches.
-    <a href="../../../../login.php">Click here to log in</a>
+    <a href="../../../../forgot_password.php">Click here to get Password</a>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

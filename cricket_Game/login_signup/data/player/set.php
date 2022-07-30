@@ -19,10 +19,10 @@
   $data_base_name = "form";
 
   session_start();
-  $captcha = $_POST['captcha'];
-  if($captcha!=$_SESSION['code']) {
-    $_SESSION['mssg']="captcha";
+  if(strcmp($_POST['captcha'],$_SESSION['code'])!=0) {
+    $_SESSION['mssg']='captcha';
     header("Location: after/wrong/signup.php");
+    die();
   }
 
   $profile_picture_url="";
@@ -68,15 +68,17 @@
   if(!$conn) {
     $_SESSION['mssg']="Conn";
     header("Location: after/wrong/signup.php");
+    die();
   }
 
-  $mobile = "SELECT COUNT(Mobile_number) FROM `player` WHERE Mobile_number='$mobile_number'";
-  $result = mysqli_num_rows(mysqli_query($conn,$mobile));
+  $mobile_already_exist = "SELECT * FROM `player` WHERE Mobile_number='$mobile_number'";
+  $result = mysqli_num_rows(mysqli_query($conn,$mobile_already_exist));
   if($result!=0) {
     $_SESSION['mssg']="mobile";
     header("Location: after/wrong/signup.php");
+    die();
   }
-
+  
   $sql = "INSERT INTO `player` (`Name`, `Father's_Name`, `Gender`, `DOB`, `Profile_picture_url`, `Aadhar_Card`, `State`, `District`, `City`, `PIN_Code`, `Mobile_number`, `Email_id`, `Password`) VALUES ('$name', '$father_name', '$gender', '$date_of_birth', '$profile_picture_url', '$aadhar_card_url', '$state', '$district', '$city', '$pin_number', '$mobile_number', '$email', '$pass')";
   $result = mysqli_query($conn,$sql);
   move_uploaded_file($tmp_name,$img_upload_path);
@@ -84,6 +86,7 @@
   
   $_SESSION['mssg']="Right";
   header("Location: after/right/signup.php");
+  die();
   ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

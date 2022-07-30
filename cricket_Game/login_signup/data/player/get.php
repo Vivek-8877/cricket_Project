@@ -20,10 +20,10 @@
   $data_base_name = "form";
 
   session_start();
-  $captcha = $_POST['captcha'];
-  if($captcha!=$_SESSION['code']) {
-    $_SESSION['mssg']="captcha";
+  if(strcmp($_POST['captcha'],$_SESSION['code'])!=0) {
+    $_SESSION['mssg']='captcha';
     header("Location: after/wrong/login.php");
+    die();
   }
 
 
@@ -34,6 +34,7 @@
   if(!$conn) {
     $_SESSION['mssg']="Conn";
     header("Location: after/wrong/login.php");
+    die();
   }
 
   if(strlen($mobile_number)==10) {
@@ -87,16 +88,19 @@
             // echo "Entered Wrong password or Mobile Number";
             $_SESSION['mssg']="Wrong";
             header("Location: after/wrong/login.php");
+            die();
         }
     } else {
         // echo "You are Not registered";
         $_SESSION['mssg']="Not";
         header("Location: after/wrong/login.php");
+        die();
     }
   } else {
     // echo "Enter Valid 10 digit Mobile Number";
     $_SESSION['mssg']="Invalid";
     header("Location: after/wrong/login.php");
+    die();
   }
 
 

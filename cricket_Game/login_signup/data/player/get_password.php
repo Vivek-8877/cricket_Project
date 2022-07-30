@@ -12,10 +12,10 @@
   <body>
   <?php
   session_start();
-  $captcha = $_POST['captcha'];
-  if($captcha!=$_SESSION['code']) {
-    $_SESSION['mssg']="captcha";
+  if(strcmp($_POST['captcha'],$_SESSION['code'])!=0) {
+    $_SESSION['mssg']='captcha';
     header("Location: after/wrong/password.php");
+    die();
   }
 
   $mobile_number = $_POST['mobile_number'];
@@ -38,21 +38,38 @@
     $result = mysqli_query($conn,$sql);
     if(mysqli_num_rows($result)==1) {
         $pass="";
+        $email="";
         foreach($result as $key => $value) {
             $pass=$value['Password'];
+            $email=$value['Email_id'];
         }
-        // echo $new_pass;
-        $_SESSION['mssg']=$pass;
-        header("Location: after/right/password.php");
+        // echo $email;
+        $tomail=$email;
+        $subject ="Your Password";
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+        $headers .= 'To: '.$tomail."\r\n";
+        $message="Your Login Password is :- ".$pass;
+        if(!mail($tomail,$subject,$message,$headers))
+        {
+          $_SESSION['mssg']="Conn";
+          header("Location: after/wrong/password.php");
+          die();
+        } else {
+          header("Location: after/right/password.php");
+          die();
+        }
     } else {
         // echo "You are Not registered";
         $_SESSION['mssg']="Not";
         header("Location: after/wrong/password.php");
+        die();
     }
   } else {
     // $em="Enter Valid 10 digit Mobile Number";
     $_SESSION['mssg']="Invalid";
     header("Location: after/wrong/password.php");
+    die();
   }
 
   ?>
