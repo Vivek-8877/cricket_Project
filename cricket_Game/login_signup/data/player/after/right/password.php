@@ -11,8 +11,10 @@
     <title>Valid Credantial</title>
   </head>
   <body>
-    <!-- session_start();
-    session_destroy(); -->
+    <?php
+    session_start();
+    session_destroy();
+    ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Please Check !</strong> Password is Sent to Your Registered Email.
         <a href="../../../../login.php">Click here to Login</a>

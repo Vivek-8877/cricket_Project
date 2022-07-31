@@ -16,8 +16,38 @@
   session_start();
   $mssg = $_SESSION['mssg'];
   // print_r($_SESSION);
-  // session_destroy();
-  if($mssg=="mobile") {
+  session_destroy();
+  if($mssg=="Invalid_otp") {
+    ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Sorry !</strong> Invalid OTP Entered , Please try again.
+    <a href="../../../../signup.php">Click here to SignUp</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <?php
+  } else if($mssg=="Invalid_email") {
+    ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Sorry !</strong> Either You Entered an Invalid Email Id or Due to technical Issues we are not Getting You,Please try again.
+    <a href="../../../../signup.php">Click here to SignUp</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <?php
+  } else if($mssg=="email") {
+    ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Sorry !</strong> Entered Email Id Already Registered,please choose different Email Id.
+    <a href="../../../../signup.php">Click here to SignUp</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <?php
+  } else if($mssg=="mobile") {
     ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Sorry !</strong> Entered Mobile Number Already Registered,please choose different mobile number.

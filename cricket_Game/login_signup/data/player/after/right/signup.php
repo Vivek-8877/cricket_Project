@@ -15,7 +15,7 @@
   <?php
   session_start();
   $mssg = $_SESSION['mssg'];
-  // session_destroy();
+  session_destroy();
     ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Successfully ! </strong> you are Registered.

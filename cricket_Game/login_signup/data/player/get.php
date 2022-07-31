@@ -7,17 +7,18 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="get.css">
+    <link rel="stylesheet" href="css_file/get.css">
     <title>logged in</title>
   </head>
   <body>
     
   <?php
-  $server_name = "localhost";
-  $user_name = "root";
-  $password = "";
+  include 'config.php';
+  // $server_name = "localhost";
+  // $user_name = "root";
+  // $password = "";
 
-  $data_base_name = "form";
+  // $data_base_name = "form";
 
   session_start();
   if(strcmp($_POST['captcha'],$_SESSION['code'])!=0) {
@@ -30,7 +31,7 @@
   $mobile_number = $_POST['mobile_number'];
   $pass = $_POST['pass'];
 
-  $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name) or $ab = false;
+  $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
   if(!$conn) {
     $_SESSION['mssg']="Conn";
     header("Location: after/wrong/login.php");

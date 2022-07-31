@@ -12,81 +12,90 @@
   </head>
   <body>
   <?php
-  $server_name = "localhost";
-  $user_name = "root";
-  $password = "";
+  include 'config.php';
+  // $server_name = "localhost";
+  // $user_name = "root";
+  // $password = "";
 
-  $data_base_name = "form";
+  // $data_base_name = "form";
+    session_start();
+    if(strcmp($_POST['captcha'],$_SESSION['code'])!=0) {
+      $_SESSION['mssg']='captcha';
+      header("Location: after/wrong/signup.php");
+      die();
+    }
 
-  session_start();
-  if(strcmp($_POST['captcha'],$_SESSION['code'])!=0) {
-    $_SESSION['mssg']='captcha';
-    header("Location: after/wrong/signup.php");
+    $profile_picture_url="";
+    $aadhar_card_url="";
+  // set url for Profile Picture
+    $img_name = $_FILES['profile_picture']['name'];
+    $img_size = $_FILES['profile_picture']['size'];
+    $tmp_name = $_FILES['profile_picture']['tmp_name'];
+    $error = $_FILES['profile_picture']['error'];
+    $img_ex = pathinfo($img_name,PATHINFO_EXTENSION);
+    $img_ex_lc = strtolower($img_ex);
+    $new_img_name = uniqid("IMG-",true).'.'.$img_ex_lc;
+    $img_upload_path = 'uploads/images/'.$new_img_name;
+    // move_uploaded_file($tmp_name,$img_upload_path);
+    $_SESSION['profile_picture_url']=$profile_picture_url=$new_img_name;
+  // set url for aadhar card
+    $aadhar_name = $_FILES['aadhar_card']['name'];
+    $aadhar_size = $_FILES['aadhar_card']['size'];
+    $tmp_aadhar_name = $_FILES['aadhar_card']['tmp_name'];
+    $error = $_FILES['aadhar_card']['error'];
+    $aadhar_ex = pathinfo($aadhar_name,PATHINFO_EXTENSION);
+    $aadhar_ex_lc = strtolower($aadhar_ex);
+    $new_aadhar_name = uniqid("DOC-",true).'.'.$aadhar_ex_lc;
+    $aadhar_upload_path = 'uploads/documents/'.$new_aadhar_name;
+    // move_uploaded_file($tmp_aadhar_name,$aadhar_upload_path);
+    $_SESSION['aadhar_card_url']=$aadhar_card_url=$new_aadhar_name;
+
+  // extracting all variable
+    $_SESSION['name']=$name = $_POST['name'];
+    $_SESSION['father_name']=$father_name = $_POST['father_name'];
+    $_SESSION['gender']=$gender = $_POST['gender'];
+    $_SESSION['date_of_birth']=$date_of_birth = $_POST['date_of_birth'];
+    $_SESSION['state']=$state = $_POST['state'];
+    $_SESSION['district']=$district = $_POST['district'];
+    $_SESSION['city']=$city = $_POST['city'];
+    $_SESSION['pin_number']=$pin_number = $_POST['pin_number'];
+    $_SESSION['mobile_number']=$mobile_number = $_POST['mobile_number'];
+    $_SESSION['email']=$email = $_POST['email'];
+    $_SESSION['pass']= $pass = $_POST['pass'];
+
+    $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
+
+    if(!$conn) {
+      $_SESSION['mssg']="Conn";
+      header("Location: after/wrong/signup.php");
+      die();
+    }
+
+    $mobile_already_exist = "SELECT * FROM `player` WHERE Mobile_number='$mobile_number'";
+    $result = mysqli_num_rows(mysqli_query($conn,$mobile_already_exist));
+
+    if($result!=0) {
+      $_SESSION['mssg']="mobile";
+      header("Location: after/wrong/signup.php");
+      die();
+    }
+
+    $email_already_exist = "SELECT * FROM `player` WHERE Email_id='$email'";
+    $result = mysqli_num_rows(mysqli_query($conn,$email_already_exist));
+
+    if($result!=0) {
+      $_SESSION['mssg']="email";
+      header("Location: after/wrong/signup.php");
+      die();
+    }
+
+    $_SESSION['tmp_name']=$tmp_name;
+    $_SESSION['tmp_aadhar_name']=$tmp_aadhar_name;
+    move_uploaded_file($tmp_name,$img_upload_path);
+    move_uploaded_file($tmp_aadhar_name,$aadhar_upload_path);
+
+    header("Location: send_otp/send_otp.php");
     die();
-  }
-
-  $profile_picture_url="";
-  $aadhar_card_url="";
-// set url for Profile Picture
-  $img_name = $_FILES['profile_picture']['name'];
-  $img_size = $_FILES['profile_picture']['size'];
-  $tmp_name = $_FILES['profile_picture']['tmp_name'];
-  $error = $_FILES['profile_picture']['error'];
-  $img_ex = pathinfo($img_name,PATHINFO_EXTENSION);
-  $img_ex_lc = strtolower($img_ex);
-  $new_img_name = uniqid("IMG-",true).'.'.$img_ex_lc;
-  $img_upload_path = 'uploads/images/'.$new_img_name;
-  // move_uploaded_file($tmp_name,$img_upload_path);
-  $profile_picture_url=$new_img_name;
-// set url for aadhar card
-  $aadhar_name = $_FILES['aadhar_card']['name'];
-  $aadhar_size = $_FILES['aadhar_card']['size'];
-  $tmp_aadhar_name = $_FILES['aadhar_card']['tmp_name'];
-  $error = $_FILES['aadhar_card']['error'];
-  $aadhar_ex = pathinfo($aadhar_name,PATHINFO_EXTENSION);
-  $aadhar_ex_lc = strtolower($aadhar_ex);
-  $new_aadhar_name = uniqid("DOC-",true).'.'.$aadhar_ex_lc;
-  $aadhar_upload_path = 'uploads/documents/'.$new_aadhar_name;
-  // move_uploaded_file($tmp_aadhar_name,$aadhar_upload_path);
-  $aadhar_card_url=$new_aadhar_name;
-
-// extracting all variable
-  $name = $_POST['name'];
-  $father_name = $_POST['father_name'];
-  $gender = $_POST['gender'];
-  $date_of_birth = $_POST['date_of_birth'];
-  $state = $_POST['state'];
-  $district = $_POST['district'];
-  $city = $_POST['city'];
-  $pin_number = $_POST['pin_number'];
-  $mobile_number = $_POST['mobile_number'];
-  $email = $_POST['email'];
-  $pass = $_POST['pass'];
-
-  $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
-
-  if(!$conn) {
-    $_SESSION['mssg']="Conn";
-    header("Location: after/wrong/signup.php");
-    die();
-  }
-
-  $mobile_already_exist = "SELECT * FROM `player` WHERE Mobile_number='$mobile_number'";
-  $result = mysqli_num_rows(mysqli_query($conn,$mobile_already_exist));
-  if($result!=0) {
-    $_SESSION['mssg']="mobile";
-    header("Location: after/wrong/signup.php");
-    die();
-  }
-  
-  $sql = "INSERT INTO `player` (`Name`, `Father's_Name`, `Gender`, `DOB`, `Profile_picture_url`, `Aadhar_Card`, `State`, `District`, `City`, `PIN_Code`, `Mobile_number`, `Email_id`, `Password`) VALUES ('$name', '$father_name', '$gender', '$date_of_birth', '$profile_picture_url', '$aadhar_card_url', '$state', '$district', '$city', '$pin_number', '$mobile_number', '$email', '$pass')";
-  $result = mysqli_query($conn,$sql);
-  move_uploaded_file($tmp_name,$img_upload_path);
-  move_uploaded_file($tmp_aadhar_name,$aadhar_upload_path);
-  
-  $_SESSION['mssg']="Right";
-  header("Location: after/right/signup.php");
-  die();
   ?>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

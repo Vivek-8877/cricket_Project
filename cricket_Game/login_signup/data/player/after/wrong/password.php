@@ -16,7 +16,7 @@
   session_start();
   $mssg = $_SESSION['mssg'];
   // print_r($_SESSION);
-  // session_destroy();
+  session_destroy();
   if($mssg=="captcha") {
     ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
