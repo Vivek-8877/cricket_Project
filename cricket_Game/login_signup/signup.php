@@ -122,22 +122,25 @@
             <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter your Valid Email for authentication" onfocusin="set_email()" onfocusout="check_email()" required>
         </div>
 
-        <!-- Password -->
-        <div class="form-group">
-            <label for="exampleInputPassword1">
-                <div class="top_of_password_box">
-                    <div>
-                        <span>Create Password</span>
-                    </div>
-                    <div></div>
-                    <div>
-                        <span>Show/Hide</span>
-                    </div>
+
+        <div class="form-row">
+            <!-- password -->
+            <div class="col-md-9 mb-3">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" name="pass" id="password" placeholder="Enter your Password" onfocusin="set_password()" onfocusout="check_password()" required>
+                <small class="form-text text-muted">*At least 8 length,1 upper case,1 special character</small>
+            </div>
+            <!-- Check Box for password hide and show -->
+            <div class="form-group">
+                <div class="form-checkcol" style="margin-top:35%;margin-left:25%;">
+                <input class="form-check-input" type="checkbox" onclick="show_hide()">
+                <label class="form-check-label">
+                    Show Password
+                </label>
                 </div>
-            </label>
-            <input type="password" class="form-control" name="pass" id="password" placeholder="Enter your Password" onfocusin="set_password()" onfocusout="check_password()" required>
-            <small id="aadhar_cardHelp" class="form-text text-muted">*At least 8 length,1 upper case,1 special character</small>
+            </div>
         </div>
+
         <!-- Check Box -->
         <div class="form-group">
             <div class="form-check">

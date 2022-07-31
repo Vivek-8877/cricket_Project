@@ -414,3 +414,13 @@ function remove_disabled_submit() {
         document.getElementById('submit').disabled = true;
     }
 }
+
+
+function show_hide() {
+    var v1 = document.getElementById('password');
+    if(v1.type=="password") {
+        v1.type="text";
+    } else {
+        v1.type="password";
+    }
+}

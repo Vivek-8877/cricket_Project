@@ -4,11 +4,6 @@
     /* background-color: aqua; */
 }
 
-.top_of_password_box{
-    display: grid;
-    grid-template-columns: 1fr 10fr 1fr;
-    /* background-color: aqua; */
-}
 #top{
     margin-top: 5%;
     padding :5%;
