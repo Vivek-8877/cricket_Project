@@ -68,14 +68,14 @@
             <div class="col-md-3 mb-3">
                 <label for="profile_picture">Select Your Profile Picture</label>
                 <input type="file" class="form-control-file" name="profile_picture" id="profile_photo" onchange="check_profile_picture(this)" required>
-                <small id="profile_pictureHelp" class="form-text text-muted">*only .jpg/.jpeg/.png file</small>
+                <small id="profile_pictureHelp" class="form-text text-muted">*only .jpg/.jpeg/.png file with file size in between 20kb to 100kb</small>
             </div>
             <div id="imagePreview"></div>
             <!-- Aadhar Card -->
             <div class="col-md-3 mb-3">
                 <label for="aadhar_card">Select Your ID</label>
                 <input type="file" class="form-control-file" name="aadhar_card" id="aadhar_card" onchange="check_aadhar_card(this)" required>
-                <small id="aadhar_cardHelp" class="form-text text-muted">*only .pdf file</small>
+                <small id="aadhar_cardHelp" class="form-text text-muted">*only .pdf file with file size in between 20kb to 100kb</small>
             </div>
         </div>
 

@@ -129,7 +129,7 @@ function check_profile_picture(v1) {
         var s = Math.round(file[i].size/1024);
         var t = file[i].type;
         // console.log(t);
-        if(!(t=="image/jpeg" || t=="image/jpg" || t=="image/png") || s>=4096 || s<=20) {
+        if(!(t=="image/jpeg" || t=="image/jpg" || t=="image/png") || s>=100 || s<=20) {
             valid=false;
             break;
         }
@@ -153,7 +153,7 @@ function check_aadhar_card(v1) {
         var s = Math.round(file[i].size/1024);
         var t = file[i].type;
         // console.log(s);
-        if(t!="application/pdf" || s>=4096 || s<=20) {
+        if(t!="application/pdf" || s>=100 || s<=20) {
             valid=false;
             break;
         }

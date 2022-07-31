@@ -19,12 +19,12 @@
   }
 
   $mobile_number = $_POST['mobile_number'];
+  include 'config.php';
+  // $server_name = "localhost";
+  // $user_name = "root";
+  // $password = "";
 
-  $server_name = "localhost";
-  $user_name = "root";
-  $password = "";
-
-  $data_base_name = "form";
+  // $data_base_name = "form";
 
   $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
   $mssg="";

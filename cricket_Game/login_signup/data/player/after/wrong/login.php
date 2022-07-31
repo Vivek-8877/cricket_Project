@@ -16,7 +16,7 @@
   session_start();
   $mssg = $_SESSION['mssg'];
   // print_r($_SESSION);
-  // session_destroy();
+  session_destroy();
   // echo $mssg;
   if($mssg=="captcha") {
     ?>
