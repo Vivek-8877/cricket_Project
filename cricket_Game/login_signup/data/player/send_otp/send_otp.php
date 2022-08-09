@@ -26,7 +26,7 @@
         <div class="form-row">
             <div class="col-md-9 mb-3">
                 <label for="OTP">Enter OTP Sent On Your Email</label>
-                <input type="text" class="form-control" name="OTP" id="OTP" placeholder="XXXXXX" required>
+                <input type="numeric" class="form-control" name="OTP" id="OTP" placeholder="XXXXXX" required>
             </div>
         </div>
         <div class="form-row">
