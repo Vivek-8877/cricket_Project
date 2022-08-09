@@ -176,6 +176,7 @@ function check_state() {
     var l = input_state.length;
     if(l==0) {
         g_state=false;
+        g_district=false;
     } else {
         g_state=true;
     }
@@ -191,28 +192,12 @@ function set_district() {
 function check_district() {
     var input_district = document.getElementById('district').value;
     var l = input_district.length;
-    if(l==0) {
+    if(l==0 || !g_state) {
         g_district=false;
-        // alert("Enter Your Name");
-        call(g_district,'district');
-        return;
-    }
-    var valid=true;
-    for(var i=0;i<l;i++) {
-        var c = input_district.charAt(i);
-        if(c>='a' && c<='z' || c>='A' && c<='Z' || c==' ') {
-
-        } else {
-            valid=false;
-            break;
-        }
-    }
-    if(valid) {
-        g_district=true;
     } else {
-        // alert("Enter Your Name");
-        g_district=false;
+        g_district=true;
     }
+    // console.log(l);
     call(g_district,'district');
 }
 

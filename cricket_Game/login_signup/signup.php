@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
+    <!-- <script src="script_file/signup.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css_file/signup.css">
+    <script src="script_file/get_add.js"></script>
+    <script src="script_file/signup.js"></script>
+
     <title>signup page</title>
   </head>
   <body>
@@ -70,7 +77,7 @@
                 <input type="file" class="form-control-file" name="profile_picture" id="profile_photo" onchange="check_profile_picture(this)" required>
                 <small id="profile_pictureHelp" class="form-text text-muted">*only .jpg/.jpeg/.png file with file size in between 20kb to 100kb</small>
             </div>
-            <div id="imagePreview"></div>
+            <!-- <div id="imagePreview"></div> -->
             <!-- Aadhar Card -->
             <div class="col-md-3 mb-3">
                 <label for="aadhar_card">Select Your ID</label>
@@ -79,21 +86,32 @@
             </div>
         </div>
 
-
         <div class="form-row">
             <!-- State -->
             <div class="col-md-3 mb-3">
-                <label for="validationCustom04">State</label>
-                <select class="custom-select my-1 mr-sm-2" name="state" id="state" onfocusin="set_state()" onfocusout="check_state()">
+                <label for="state">State</label>
+                <select class="custom-select my-1 mr-sm-2" name="state" id="state" onfocusin="set_state()" onfocusout="check_state()" onchange="check_district()">
                     <option selected value="">Select Your State...</option>
-                    <option value="Bihar">Bihar</option>
+                    <!-- <option value="Bihar">Bihar</option> -->
+                    <?php
+                        include 'address/config.php';
+                        $conn = mysqli_connect($server_name,$user_name,$password,$data_base_name);
+                        $sql = 'SELECT * FROM `state`';
+                        $state_name = mysqli_query($conn,$sql);
+                        foreach($state_name as $value) {
+                            echo '<option value="'.$value['state_id'].'">'.$value['state_name'].'</option>';
+                        }
+                    ?>
                 </select>
             </div>
-
+            
             <!-- District -->
             <div class="col-md-3 mb-3">
                 <label for="district">District</label>
-                <input type="text" class="form-control" name="district" id="district" placeholder="Enter Your District Name" onfocusin="set_district()" onfocusout="check_district()" required>
+                <select class="custom-select my-1 mr-sm-2" name="district" id="district" onfocusin="set_district()" onfocusout="check_district()">
+                    <option selected value="">Select Your State First...</option>
+                    
+                </select>
             </div>
 
             <!-- City -->
@@ -175,9 +193,12 @@
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="script_file/signup.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- <script src="script_file/signup.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
   </body>
 </html>

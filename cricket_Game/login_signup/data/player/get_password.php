@@ -19,7 +19,7 @@
   }
 
   $mobile_number = $_POST['mobile_number'];
-  include 'config.php';
+  include '../config.php';
   // $server_name = "localhost";
   // $user_name = "root";
   // $password = "";

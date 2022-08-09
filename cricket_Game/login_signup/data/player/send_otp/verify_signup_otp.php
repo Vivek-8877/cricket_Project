@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include '../config.php';
+include '../../config.php';
 
 if((strcmp($_SESSION['OTP'],$_POST['OTP'])!=0)) {
     $_SESSION['mssg']="Invalid_otp";
