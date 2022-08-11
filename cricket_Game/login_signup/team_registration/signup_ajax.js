@@ -1,540 +1,165 @@
-// VERIFYING CAPTION MOBILE NUMBER AND GETTING NAME
-$(document).ready(function(){
-    $("#caption_mobile_number_data").on('click',function(){
-        var mobile_number = $("#caption_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number},
-            dataType:"html",
-            success:function(data) {
-                // alert(data);
-                if(!data) {
-                    alert("This Number is Not Registered. First Register with us.")
-                } else {
-                    document.getElementById('caption_player_name_col').style.display="";
-                    document.getElementById('caption_send_otp_col').style.display="";
-                    document.getElementById('caption_mobile_number').disabled=true;
-                    document.getElementById('caption_mobile_number_data_col').style.display="none";
-                    $('#caption_player_name').html(data);
-                }
+function get_data(v) {
+    var id_idx = v.id.substring(v.id.length-3);
+    var mobile_number = $("#mobile_number"+id_idx).val();
+    $.ajax({
+        method:"POST",
+        url:"signup_function.php",
+        data:{function2call: "get_data",mobile_number:mobile_number},
+        dataType:"html",
+        success:function(data) {
+            // alert(data);
+            if(!data) {
+                alert("This Number is Not Registered. First Register with us.");
+            } else {
+                document.getElementById('name_col'+id_idx).style.display="";
+                document.getElementById('send_otp_col'+id_idx).style.display="";
+                document.getElementById('mobile_number'+id_idx).readOnly=true;
+                document.getElementById('data_col'+id_idx).style.display="none";
+                $("#name"+id_idx).html(data);
             }
-        });
+        }
     });
-});
+}
 
-
-// CAPTION OTP SENDER
-$(document).ready(function(){
-    $("#caption_send_otp").on('click',function(){
-        var mobile_number = $("#caption_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number,send_otp:true},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! try after some time,due to technical isseus we are not getting you.");
-                } else {
-                    alert(data);
-                    document.getElementById('caption_send_otp_col').style.display="none";
-                    document.getElementById('caption_otp_col').style.display="";
-                    document.getElementById('caption_verify_otp_col').style.display="";
-                }
+function send_otp(v) {
+    var id_idx = v.id.substring(v.id.length-3);
+    var mobile_number = $("#mobile_number"+id_idx).val();
+    $.ajax({
+        method:"POST",
+        url:"signup_function.php",
+        data:{function2call: "send_otp",mobile_number:mobile_number,send_otp:true},
+        dataType:"html",
+        success:function(data) {
+            if(!data) {
+                alert("Please ! try after some time,due to technical isseus we are not getting you.");
+            } else {
+                alert(data);
+                document.getElementById('send_otp_col'+id_idx).style.display="none";
+                document.getElementById('otp_col'+id_idx).style.display="";
+                document.getElementById('verify_otp_col'+id_idx).style.display="";
             }
-        });
+        }
     });
-});
+}
 
-
-// CAPTION OTP VERIFICATION
-$(document).ready(function(){
-    $("#caption_verify_OTP").on('click',function(){
-        var entered_OTP = $("#caption_OTP").val();
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{OTP:entered_OTP},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! Enter Valid OTP");
-                } else {
-                    alert(data);
-                    document.getElementById('caption_otp_col').style.display="none";
-                    document.getElementById('caption_verify_otp_col').style.display="none";
-                    document.getElementById('caption_player_name').style.backgroundColor="#2cff00";
-                    document.getElementById('vice_caption').style.display="";
-                }
+function otp_verification(v) {
+    var id_idx = v.id.substring(v.id.length-3);
+    var entered_OTP = $("#OTP"+id_idx).val();
+    var name = $("#name"+id_idx).text();
+    var mobile_number = $("#mobile_number"+id_idx).val();
+    $.ajax({
+        method:"POST",
+        url:"signup_function.php",
+        data:{function2call: "otp_verification",OTP:entered_OTP,mobile_number:mobile_number},
+        dataType:"html",
+        success:function(data) {
+            // alert(data);
+            if(!data) {
+                alert("Please ! Enter Valid OTP");
+            } else {
+                alert(name+" is added Successfully.");
+                document.getElementById('otp_col'+id_idx).style.display="none";
+                document.getElementById('verify_otp_col'+id_idx).style.display="none";
+                document.getElementById('name'+id_idx).style.backgroundColor="#2cff00";
+                document.getElementById('add_col'+id_idx).style.display="";
             }
-        });
+        }
     });
-});
+}
+
+function edit_player(v) {
+    var id_idx = v.id.substring(v.id.length-3);
+    document.getElementById('mobile_number'+id_idx).readOnly=false;
+    document.getElementById('name_col'+id_idx).style.display="none";
+    document.getElementById('add_col'+id_idx).style.display="none";
+    document.getElementById('data_col'+id_idx).style.display="";
+}
 
 
-// VERIFYING VICE CAPTION MOBILE NUMBER AND GETTING NAME
+
+// CAPTCHA CODE VERIFICATION
 $(document).ready(function(){
-    $("#vice_caption_mobile_number_data").on('click',function(){
-        var mobile_number = $("#vice_caption_mobile_number").val();
-        // alert(mobile_number)
+    $("#verify_otp").on('click',function(){
+        var entered_value = $("#captcha").val();
         $.ajax({
             method:"POST",
             url:"signup_function.php",
-            data:{mobile_number:mobile_number},
-            dataType:"html",
-            success:function(data) {
-                // alert(data);
-                if(!data) {
-                    alert("This Number is Not Registered. First Register with us.")
-                } else {
-                    document.getElementById('vice_caption_player_name_col').style.display="";
-                    document.getElementById('vice_caption_send_otp_col').style.display="";
-                    document.getElementById('vice_caption_mobile_number').disabled=true;
-                    document.getElementById('vice_caption_mobile_number_data_col').style.display="none";
-                    $('#vice_caption_player_name').html(data);
-                }
-            }
-        });
-    });
-});
-
-
-// VICE CAPTION OTP SENDER
-$(document).ready(function(){
-    $("#vice_caption_send_otp").on('click',function(){
-        var mobile_number = $("#vice_caption_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number,send_otp:true},
+            data:{function2call: "captcha_validation",captcha_code:entered_value},
             dataType:"html",
             success:function(data) {
                 if(!data) {
-                    alert("Please ! try after some time,due to technical isseus we are not getting you.");
+                    alert("Please ! Enter Valid Captcha Code");
                 } else {
-                    alert(data);
-                    document.getElementById('vice_caption_send_otp_col').style.display="none";
-                    document.getElementById('vice_caption_otp_col').style.display="";
-                    document.getElementById('vice_caption_verify_otp_col').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-//VICE CAPTION OTP VERIFICATION
-$(document).ready(function(){
-    $("#vice_caption_verify_OTP").on('click',function(){
-        var entered_OTP = $("#vice_caption_OTP").val();
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{OTP:entered_OTP},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! Enter Valid OTP");
-                } else {
-                    alert(data);
-                    document.getElementById('vice_caption_otp_col').style.display="none";
-                    document.getElementById('vice_caption_verify_otp_col').style.display="none";
-                    document.getElementById('vice_caption_player_name').style.backgroundColor="#2cff00";
-                    document.getElementById('player1').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-// VERIFYING PLAYER_1  MOBILE NUMBER AND GETTING NAME
-$(document).ready(function(){
-    $("#player1_mobile_number_data").on('click',function(){
-        var mobile_number = $("#player1_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number},
-            dataType:"html",
-            success:function(data) {
-                // alert(data);
-                if(!data) {
-                    alert("This Number is Not Registered. First Register with us.")
-                } else {
-                    document.getElementById('player1_name_col').style.display="";
-                    document.getElementById('player1_send_otp_col').style.display="";
-                    document.getElementById('player1_mobile_number').disabled=true;
-                    document.getElementById('player1_mobile_number_data_col').style.display="none";
-                    $('#player1_name').html(data);
-                }
-            }
-        });
-    });
-});
-
-
-// PLAYER_1 OTP SENDER
-$(document).ready(function(){
-    $("#player1_send_otp").on('click',function(){
-        var mobile_number = $("#player1_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number,send_otp:true},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! try after some time,due to technical isseus we are not getting you.");
-                } else {
-                    alert(data);
-                    document.getElementById('player1_send_otp_col').style.display="none";
-                    document.getElementById('player1_otp_col').style.display="";
-                    document.getElementById('player1_verify_otp_col').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-//PLAYER_1 OTP VERIFICATION
-$(document).ready(function(){
-    $("#player1_verify_OTP").on('click',function(){
-        var entered_OTP = $("#player1_OTP").val();
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{OTP:entered_OTP},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! Enter Valid OTP");
-                } else {
-                    alert(data);
-                    document.getElementById('player1_otp_col').style.display="none";
-                    document.getElementById('player1_verify_otp_col').style.display="none";
-                    document.getElementById('player1_name').style.backgroundColor="#2cff00";
-                    document.getElementById('player2').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-
-
-// VERIFYING PLAYER_2  MOBILE NUMBER AND GETTING NAME
-$(document).ready(function(){
-    $("#player2_mobile_number_data").on('click',function(){
-        var mobile_number = $("#player2_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number},
-            dataType:"html",
-            success:function(data) {
-                // alert(data);
-                if(!data) {
-                    alert("This Number is Not Registered. First Register with us.")
-                } else {
-                    document.getElementById('player2_name_col').style.display="";
-                    document.getElementById('player2_send_otp_col').style.display="";
-                    document.getElementById('player2_mobile_number').disabled=true;
-                    document.getElementById('player2_mobile_number_data_col').style.display="none";
-                    $('#player2_name').html(data);
-                }
-            }
-        });
-    });
-});
-
-
-// PLAYER_2 OTP SENDER
-$(document).ready(function(){
-    $("#player2_send_otp").on('click',function(){
-        var mobile_number = $("#player2_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number,send_otp:true},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! try after some time,due to technical isseus we are not getting you.");
-                } else {
-                    alert(data);
-                    document.getElementById('player2_send_otp_col').style.display="none";
-                    document.getElementById('player2_otp_col').style.display="";
-                    document.getElementById('player2_verify_otp_col').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-//PLAYER_2 OTP VERIFICATION
-$(document).ready(function(){
-    $("#player2_verify_OTP").on('click',function(){
-        var entered_OTP = $("#player2_OTP").val();
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{OTP:entered_OTP},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! Enter Valid OTP");
-                } else {
-                    alert(data);
-                    document.getElementById('player2_otp_col').style.display="none";
-                    document.getElementById('player2_verify_otp_col').style.display="none";
-                    document.getElementById('player2_name').style.backgroundColor="#2cff00";
-                    document.getElementById('player3').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-// VERIFYING PLAYER_3  MOBILE NUMBER AND GETTING NAME
-$(document).ready(function(){
-    $("#player3_mobile_number_data").on('click',function(){
-        var mobile_number = $("#player3_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number},
-            dataType:"html",
-            success:function(data) {
-                // alert(data);
-                if(!data) {
-                    alert("This Number is Not Registered. First Register with us.")
-                } else {
-                    document.getElementById('player3_name_col').style.display="";
-                    document.getElementById('player3_send_otp_col').style.display="";
-                    document.getElementById('player3_mobile_number').disabled=true;
-                    document.getElementById('player3_mobile_number_data_col').style.display="none";
-                    $('#player3_name').html(data);
-                }
-            }
-        });
-    });
-});
-
-
-// PLAYER_3 OTP SENDER
-$(document).ready(function(){
-    $("#player3_send_otp").on('click',function(){
-        var mobile_number = $("#player3_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number,send_otp:true},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! try after some time,due to technical isseus we are not getting you.");
-                } else {
-                    alert(data);
-                    document.getElementById('player3_send_otp_col').style.display="none";
-                    document.getElementById('player3_otp_col').style.display="";
-                    document.getElementById('player3_verify_otp_col').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-//PLAYER_3 OTP VERIFICATION
-$(document).ready(function(){
-    $("#player3_verify_OTP").on('click',function(){
-        var entered_OTP = $("#player3_OTP").val();
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{OTP:entered_OTP},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! Enter Valid OTP");
-                } else {
-                    alert(data);
-                    document.getElementById('player3_otp_col').style.display="none";
-                    document.getElementById('player3_verify_otp_col').style.display="none";
-                    document.getElementById('player3_name').style.backgroundColor="#2cff00";
-                    document.getElementById('player4').style.display="";
-                }
-            }
-        });
-    });
-});
-
-// VERIFYING PLAYER_4  MOBILE NUMBER AND GETTING NAME
-$(document).ready(function(){
-    $("#player4_mobile_number_data").on('click',function(){
-        var mobile_number = $("#player4_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number},
-            dataType:"html",
-            success:function(data) {
-                // alert(data);
-                if(!data) {
-                    alert("This Number is Not Registered. First Register with us.")
-                } else {
-                    document.getElementById('player4_name_col').style.display="";
-                    document.getElementById('player4_send_otp_col').style.display="";
-                    document.getElementById('player4_mobile_number').disabled=true;
-                    document.getElementById('player4_mobile_number_data_col').style.display="none";
-                    $('#player4_name').html(data);
-                }
-            }
-        });
-    });
-});
-
-
-// PLAYER_4 OTP SENDER
-$(document).ready(function(){
-    $("#player4_send_otp").on('click',function(){
-        var mobile_number = $("#player4_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number,send_otp:true},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! try after some time,due to technical isseus we are not getting you.");
-                } else {
-                    alert(data);
-                    document.getElementById('player4_send_otp_col').style.display="none";
-                    document.getElementById('player4_otp_col').style.display="";
-                    document.getElementById('player4_verify_otp_col').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-//PLAYER_4 OTP VERIFICATION
-$(document).ready(function(){
-    $("#player4_verify_OTP").on('click',function(){
-        var entered_OTP = $("#player4_OTP").val();
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{OTP:entered_OTP},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! Enter Valid OTP");
-                } else {
-                    alert(data);
-                    document.getElementById('player4_otp_col').style.display="none";
-                    document.getElementById('player4_verify_otp_col').style.display="none";
-                    document.getElementById('player4_name').style.backgroundColor="#2cff00";
-                    document.getElementById('player5').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-// VERIFYING PLAYER_5 MOBILE NUMBER AND GETTING NAME
-$(document).ready(function(){
-    $("#player5_mobile_number_data").on('click',function(){
-        var mobile_number = $("#player5_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number},
-            dataType:"html",
-            success:function(data) {
-                // alert(data);
-                if(!data) {
-                    alert("This Number is Not Registered. First Register with us.")
-                } else {
-                    document.getElementById('player5_name_col').style.display="";
-                    document.getElementById('player5_send_otp_col').style.display="";
-                    document.getElementById('player5_mobile_number').disabled=true;
-                    document.getElementById('player5_mobile_number_data_col').style.display="none";
-                    $('#player5_name').html(data);
-                }
-            }
-        });
-    });
-});
-
-
-// PLAYER_5 OTP SENDER
-$(document).ready(function(){
-    $("#player5_send_otp").on('click',function(){
-        var mobile_number = $("#player5_mobile_number").val();
-        // alert(mobile_number)
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{mobile_number:mobile_number,send_otp:true},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! try after some time,due to technical isseus we are not getting you.");
-                } else {
-                    alert(data);
-                    document.getElementById('player5_send_otp_col').style.display="none";
-                    document.getElementById('player5_otp_col').style.display="";
-                    document.getElementById('player5_verify_otp_col').style.display="";
-                }
-            }
-        });
-    });
-});
-
-
-//PLAYER_5 OTP VERIFICATION
-$(document).ready(function(){
-    $("#player5_verify_OTP").on('click',function(){
-        var entered_OTP = $("#player5_OTP").val();
-        $.ajax({
-            method:"POST",
-            url:"signup_function.php",
-            data:{OTP:entered_OTP},
-            dataType:"html",
-            success:function(data) {
-                if(!data) {
-                    alert("Please ! Enter Valid OTP");
-                } else {
-                    alert(data);
-                    document.getElementById('player5_otp_col').style.display="none";
-                    document.getElementById('player5_verify_otp_col').style.display="none";
-                    document.getElementById('player5_name').style.backgroundColor="#2cff00";
-                    // document.getElementById('player6').style.display="";
+                    alert("Captcha Code Verified");
                     document.getElementById('submit').disabled=false;
                     $("#submit").html("SUBMIT");
+                    document.getElementById('captcha_code_col').style.display="none";
+                    for(var i=100;i<count;i++) {
+                        document.getElementById('add_col'+i).style.display="none";
+                        console.log('add_col'+i);
+                    }
                 }
             }
         });
     });
 });
+
+var count =100;
+function add_player(v) {
+    var id_idx = v.id.substring(v.id.length-3);
+    $("#add_more_player"+id_idx).html("Edit Player");
+    document.getElementById('add_more_player'+id_idx).style.backgroundColor="#00d4ff";
+    $("#add_more_player"+id_idx).attr("onclick","edit_player(this)");
+    document.getElementById('add_more_player'+id_idx).id='edit_player'+id_idx;
+    count++;
+    if(count==102) {
+        alert("You Can not add more than 15 player.");
+        document.getElementById('captcha_code_col').style.display="";
+        return;
+    }
+    $('#player').append(`<!-- Player_1 -->
+    <div>
+    <div class="form-row">
+        <!-- Mobile Number -->
+        <div class="col-md-3 mb-3">
+            <label  for="mobile_number">Mobile Number</label>
+            <input type="tel" class="form-control" name="mobile_number[]" id="mobile_number`+count+`" aria-describedby="mobile_numberHelp" placeholder="Enter Mobile Number of Player">
+        </div>
+        <!-- get data -->
+        <div class="col-md-2 mb-3" id="data_col`+count+`">
+            <label for="" style="color:white">Get Data</label>
+            <button style="background-color:orange;color:white;" class="form-control" type="button" id="data`+count+`" class="btn btn-primary" onclick="get_data(this)">Get Data</button>
+        </div>
+        <!-- display Name -->
+        <div class="col-md-2 mb-3" id="name_col`+count+`" style="display:none">
+            <label for="">Player Name</label>
+            <div class="input-group-append">
+                <span style="background-color:red;" class="input-group-text font-weight-bold" id="name`+count+`"></span>
+            </div>
+        </div>
+        <!-- Add Remove -->
+        <div class="col-md-2 mb-3" id="add_col`+count+`" style="display:none;">
+            <label for="" style="color:white">G</label>
+            <button style="background-color:green;color:white;" class="form-control" type="button" id="add_more_player`+count+`" class="btn btn-primary" onclick="add_player(this)">Add More Player</button>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <!-- send otp -->
+        <div class="col-md-3 mb-3" id="send_otp_col`+count+`" style="display:none">
+            <button style="background-color:pink;" class="form-control" type="button" id="send_otp`+count+`" class="btn btn-primary" onclick="send_otp(this)">Verify Player</button>
+        </div>
+
+        <!-- Enter OTP -->
+        <div class="col-md-3 mb-3" id="otp_col`+count+`" style="display:none">
+            <label  for="otp">Enter OTP Send On Player Email</label>
+            <input style="text-align:center;" type="numeric" class="form-control" id="OTP`+count+`" placeholder="XXXXXX" required>
+        </div>
+        <!-- verify OTP -->
+        <div class="col-md-2 mb-3" id="verify_otp_col`+count+`" style="display:none">
+            <label for="" style="color:white">Verify OTP</label>
+            <button style="background-color:#2cff00;color:white;" class="form-control" type="button" id="verify_OTP`+count+`" class="btn btn-primary" onclick="otp_verification(this)">Verify OTP</button>
+        </div>
+    </div>
+    </div>`);
+}

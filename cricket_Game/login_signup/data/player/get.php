@@ -68,13 +68,13 @@
                       $value1="Others";
                     }
                   }
-                  if($key1=="State") {
+                  if($key1=="District") {
                     $conn1 = mysqli_connect($server_name,$user_name,$password,'address');
                     $sql1 = mysqli_fetch_row(mysqli_query($conn1,"SELECT district_name FROM `district` WHERE district_id=$value1"));
                     $value1=$sql1[0];
 
                   }
-                  if($key1=="District") {
+                  if($key1=="State") {
                     $conn1 = mysqli_connect($server_name,$user_name,$password,'address');
                     $sql1 = mysqli_fetch_row(mysqli_query($conn1,"SELECT state_name FROM `state` WHERE state_id=$value1"));
                     $value1=$sql1[0];

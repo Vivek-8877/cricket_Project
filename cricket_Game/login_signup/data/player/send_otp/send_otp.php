@@ -15,11 +15,12 @@
         include 'send_otp_function.php';
         session_start();
         $_SESSION['OTP']=rand(111111,999999);
-        if(!sendOTP($_SESSION['email'],$_SESSION['OTP'])) {
-            $_SESSION['mssg']="Invalid_email";
-            header("Location: ../after/wrong/signup.php");
-            die();
-        }
+        echo $_SESSION['OTP'];
+        // if(!sendOTP($_SESSION['email'],$_SESSION['OTP'])) {
+        //     $_SESSION['mssg']="Invalid_email";
+        //     header("Location: ../after/wrong/signup.php");
+        //     die();
+        // }
     ?>
     <div class="container" id="top">
     <form action="verify_signup_otp.php" method="post">
